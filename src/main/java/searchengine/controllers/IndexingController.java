@@ -17,17 +17,17 @@ public class IndexingController {
         this.index = index;
     }
 
-    @GetMapping("/startIndexing")
+    @GetMapping("/api/startIndexing")
     public ResponseEntity<Object> startIndexingAll() {
         return ResponseEntity.ok(index.startIndexingAll());
     }
 
-    @GetMapping("/stopIndexing")
+    @GetMapping("/api/stopIndexing")
     public ResponseEntity<Object> stopIndexingAll() {
         return ResponseEntity.ok(index.stopIndexing());
     }
 
-    @PostMapping("/indexPage")
+    @PostMapping("/api/indexPage")
     public ResponseEntity<Object> startIndexingOne(
             @RequestParam(name="url", required=false, defaultValue=" ") String url) {
         return ResponseEntity.ok(index.startIndexingOne(url));

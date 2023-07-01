@@ -25,7 +25,7 @@ public class Total {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public void setPages(long pages) {
         this.pages = pages;
     }
 
@@ -33,7 +33,7 @@ public class Total {
         return lemmas;
     }
 
-    public void setLemmas(int lemmas) {
+    public void setLemmas(long lemmas) {
         this.lemmas = lemmas;
     }
 

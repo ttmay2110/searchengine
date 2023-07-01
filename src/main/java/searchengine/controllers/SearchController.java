@@ -18,7 +18,7 @@ public class SearchController {
         this.search = search;
     }
 
-    @GetMapping("/search")
+    @GetMapping("/api/search")
     public ResponseEntity<Object> search(
             @RequestParam(name="query", required=false, defaultValue="") String query,
             @RequestParam(name="site", required=false, defaultValue="") String site,

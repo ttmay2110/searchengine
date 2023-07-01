@@ -1,5 +1,11 @@
 package searchengine.services.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import searchengine.config.SitesList;
+import searchengine.dto.statistics.DetailedStatisticsItem;
+import searchengine.dto.statistics.StatisticsData;
+import searchengine.dto.statistics.StatisticsResponse;
+import searchengine.dto.statistics.TotalStatistics;
 import searchengine.services.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -12,24 +18,42 @@ import searchengine.services.indexresponseentity.Statistics;
 import searchengine.services.indexresponseentity.Total;
 import searchengine.services.responses.StatisticResponseService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 @Service
 @RequiredArgsConstructor
 public class StatisticsServiceImpl implements StatisticsService {
     private static final Log log = LogFactory.getLog(StatisticsServiceImpl.class);
-
+    @Autowired
     private final SiteRepositoryService siteRepositoryService;
+    @Autowired
     private final LemmaRepositoryService lemmaRepositoryService;
+    @Autowired
     private final PageRepositoryService pageRepositoryService;
+    private final SitesList sites;
 
 
+    @Override
     public StatisticResponseService getStatistics() {
         Total total = getTotal();
+        total.setSites(sites.getSites().size());
+        total.setIndexing(true);
+
+        List<DetailedStatisticsItem> detailed = new ArrayList<>();
         List<Site> siteList = siteRepositoryService.getAllSites();
         Detailed[] detaileds = new Detailed[siteList.size()];
         for (int i = 0; i < siteList.size(); i++) {
             detaileds[i] = getDetailed(siteList.get(i));
+            Site site = siteList.get(i);
+            DetailedStatisticsItem item = new DetailedStatisticsItem();
+            item.setName(site.getName());
+            item.setUrl(site.getUrl());
+            detailed.add(item);
+
         }
+
         log.info("Получение статистики.");
         return new StatisticResponseService(true, new Statistics(total, detaileds));
     }

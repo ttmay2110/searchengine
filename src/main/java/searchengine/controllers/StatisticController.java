@@ -15,7 +15,7 @@ public class StatisticController {
         this.statistic = statistic;
     }
 
-    @GetMapping("/statistics")
+    @GetMapping("/api/statistics")
     public ResponseEntity<Object> getStatistics() {
         return ResponseEntity.ok(statistic.getStatistics());
     }

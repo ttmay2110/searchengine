@@ -1,5 +1,6 @@
 package searchengine.services.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import searchengine.services.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +12,7 @@ import searchengine.services.responses.TrueResponseService;
 
 @Service
 public class IndexingServiceImpl implements IndexingService {
-
+    @Autowired
     private final IndexBuilding indexBuilding;
 
     private static final Logger log = LogManager.getLogger();
