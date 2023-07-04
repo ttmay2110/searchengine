@@ -17,21 +17,19 @@ public class IndexBuilding {
     private final IndexRepositoryService indexRepositoryService;
     private final PageRepositoryService pageRepositoryService;
     private final LemmaRepositoryService lemmaRepositoryService;
-    private final LemmaAllRepositoryService lemmaAllRepositoryService;
     private final List<SiteIndexing> siteIndexingList = Collections.synchronizedList(new ArrayList<>());
 
     public IndexBuilding(SearchSettings searchSettings,
                          SiteRepositoryService siteRepositoryService,
                          IndexRepositoryService indexRepositoryService,
                          PageRepositoryService pageRepositoryService,
-                         LemmaRepositoryService lemmaRepositoryService,
-                         LemmaAllRepositoryService lemmaAllRepositoryService) {
+                         LemmaRepositoryService lemmaRepositoryService)
+    {
         this.searchSettings = searchSettings;
         this.siteRepositoryService = siteRepositoryService;
         this.indexRepositoryService = indexRepositoryService;
         this.pageRepositoryService = pageRepositoryService;
         this.lemmaRepositoryService = lemmaRepositoryService;
-        this.lemmaAllRepositoryService = lemmaAllRepositoryService;
     }
     ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(3);
     public boolean allSiteIndexing() throws InterruptedException {
@@ -70,7 +68,6 @@ public class IndexBuilding {
                     indexRepositoryService,
                     pageRepositoryService,
                     lemmaRepositoryService,
-                    lemmaAllRepositoryService,
                     false,
                     url);
             siteIndexingList.add(indexing);
@@ -97,7 +94,6 @@ public class IndexBuilding {
                 indexRepositoryService,
                 pageRepositoryService,
                 lemmaRepositoryService,
-                lemmaAllRepositoryService,
                 true,
                 "");
         siteIndexingList.add(indexing);

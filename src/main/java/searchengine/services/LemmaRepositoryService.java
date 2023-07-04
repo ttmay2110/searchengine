@@ -14,4 +14,13 @@ public interface LemmaRepositoryService {
     List<Lemma> findLemmasByIndexing(List<Index> indexingList);
     void saveLemma(String lemma, int frequency, int siteId);
     int findLemmaIdByNameAndSiteId(String lemma, int siteId);
+    void saveAll(Iterable<Lemma> entities);
+
+    void saveLemmas();
+
+    void saveIndex();
+
+    void deleteLemmaAll();
+
 }
+

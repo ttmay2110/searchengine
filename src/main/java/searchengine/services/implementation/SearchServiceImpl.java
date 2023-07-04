@@ -38,8 +38,8 @@ public class SearchServiceImpl implements SearchService {
             log.info("Запрос на поиск строки обработан, результат получен.");
             return response;
         } else {
-            log.warn("Запрос на поиск строки обработан, указанная страница не найдена.");
-            return new FalseResponseService("Указанная страница не найдена");
+            log.warn("Запрос на поиск строки обработан, указанная строка не найдена.");
+            return new FalseResponseService("Указанная строка не найдена");
         }
     }
 }

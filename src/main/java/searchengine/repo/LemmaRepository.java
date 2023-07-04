@@ -11,12 +11,30 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-
 public interface LemmaRepository extends CrudRepository<Lemma, Integer> {
     List<Lemma> findByLemma (String lemma);
 
     @Query(value = "SELECT * from Lemma WHERE id IN(:id)", nativeQuery = true)
     List<Lemma> findById (int[] id);
+    @Modifying
+    @Transactional
+    @Query(value = "insert into lemma (frequency, lemma, site_id)\n" +
+                    "select sum(frequency), lemma, site_id\n" +
+                    "from search_engine.lemma_all\n" +
+                    "group by lemma, site_id;\n"
+            , nativeQuery = true)
+    void saveLemmas();
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into `index` (`rank`, lemma_id, page_id)\n" +
+                    "select a.frequency, l.id, a.page_id\n" +
+                    "  from search_engine.lemma_all a \n" +
+                    "  join search_engine.lemma l\n" +
+                    "    on l.lemma = a.lemma\n" +
+                    "   and l.site_id = a.site_id;\n"
+            , nativeQuery = true)
+    void saveIndex();
 
     @Query(value = "SELECT * from Lemma WHERE id IN :ids", nativeQuery = true)
     List<Lemma> findByIds (@Param("ids")int[] ids);

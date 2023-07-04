@@ -76,4 +76,21 @@ public class LemmaRepoServiceImpl implements LemmaRepositoryService {
     public int findLemmaIdByNameAndSiteId(String lemma, int siteId) {
         return lemmaRepository.findLemmaIdByNameAndSiteId(lemma, siteId);
     }
+    @Override
+    public synchronized void saveAll(Iterable<Lemma> entities) {
+        lemmaRepository.saveAll(entities);
+    }
+
+    @Override
+    public void saveLemmas() {
+        lemmaRepository.saveLemmas();
+    }
+    @Override
+    public void saveIndex() {
+        lemmaRepository.saveIndex();
+    }
+    @Override
+    public void deleteLemmaAll() {
+        lemmaRepository.deleteAll();
+    }
 }
