@@ -20,7 +20,7 @@ public interface LemmaRepository extends CrudRepository<Lemma, Integer> {
     @Transactional
     @Query(value = "insert into lemma (frequency, lemma, site_id)\n" +
                     "select sum(frequency), lemma, site_id\n" +
-                    "from search_engine.lemma_all\n" +
+                    "from search_engine.lemma\n" +
                     "group by lemma, site_id;\n"
             , nativeQuery = true)
     void saveLemmas();
@@ -28,11 +28,11 @@ public interface LemmaRepository extends CrudRepository<Lemma, Integer> {
     @Modifying
     @Transactional
     @Query(value = "insert into `index` (`rank`, lemma_id, page_id)\n" +
-                    "select a.frequency, l.id, a.page_id\n" +
-                    "  from search_engine.lemma_all a \n" +
-                    "  join search_engine.lemma l\n" +
-                    "    on l.lemma = a.lemma\n" +
-                    "   and l.site_id = a.site_id;\n"
+                    "select a.frequency, a.id, l.page_id\n" +
+                    "  from search_engine.lemma a \n" +
+                    "  join search_engine.index l\n"+
+                    "    on a.id = l.lemma_id\n"
+
             , nativeQuery = true)
     void saveIndex();
 

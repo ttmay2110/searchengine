@@ -12,7 +12,7 @@ import searchengine.services.responses.TrueResponseService;
 
 @Service
 public class IndexingServiceImpl implements IndexingService {
-    @Autowired
+
     private final IndexBuilding indexBuilding;
 
     private static final Logger log = LogManager.getLogger();

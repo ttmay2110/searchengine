@@ -1,5 +1,8 @@
 package searchengine.controllers;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import searchengine.model.Request;
 import searchengine.services.SearchService;
 import org.springframework.http.ResponseEntity;
@@ -10,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 
 @Controller
+@RequiredArgsConstructor
 public class SearchController {
 
     private final SearchService search;
 
-    public SearchController(SearchService search) {
-        this.search = search;
-    }
 
     @GetMapping("/api/search")
     public ResponseEntity<Object> search(

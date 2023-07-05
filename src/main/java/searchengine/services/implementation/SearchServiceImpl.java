@@ -8,6 +8,7 @@ import searchengine.model.Request;
 import searchengine.services.SearchService;
 import searchengine.services.responses.FalseResponseService;
 import searchengine.services.responses.ResponseService;
+import searchengine.services.responses.TrueResponseService;
 
 @Service
 public class SearchServiceImpl implements SearchService {

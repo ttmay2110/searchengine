@@ -26,11 +26,11 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class StatisticsServiceImpl implements StatisticsService {
     private static final Log log = LogFactory.getLog(StatisticsServiceImpl.class);
-    @Autowired
+
     private final SiteRepositoryService siteRepositoryService;
-    @Autowired
+
     private final LemmaRepositoryService lemmaRepositoryService;
-    @Autowired
+
     private final PageRepositoryService pageRepositoryService;
     private final SitesList sites;
 

@@ -19,7 +19,6 @@ public class SiteIndexing extends Thread {
     private final IndexRepositoryService indexRepositoryService;
     private final PageRepositoryService pageRepositoryService;
     private final LemmaRepositoryService lemmaRepositoryService;
-//    private final LemmaAllRepositoryService lemmaAllRepositoryService;
     private final boolean allSite;
     private Boolean isStoppingByHuman = false;
     SiteMapBuilder builder;
@@ -31,7 +30,6 @@ public class SiteIndexing extends Thread {
                         IndexRepositoryService indexRepositoryService,
                         PageRepositoryService pageRepositoryService,
                         LemmaRepositoryService lemmaRepositoryService,
-//                        LemmaAllRepositoryService lemmaAllRepositoryService,
                         boolean allSite,
                         String url) {
         this.site = site;
@@ -39,7 +37,6 @@ public class SiteIndexing extends Thread {
         this.indexRepositoryService = indexRepositoryService;
         this.pageRepositoryService = pageRepositoryService;
         this.lemmaRepositoryService = lemmaRepositoryService;
-//        this.lemmaAllRepositoryService = lemmaAllRepositoryService;
         this.allSite = allSite;
         this.builder = new SiteMapBuilder(site.getUrl(), this.isInterrupted(), pageRepositoryService, site);
         this.url = url;
@@ -71,7 +68,7 @@ public class SiteIndexing extends Thread {
         for (Page page : pageRepositoryService.getAllPagesBySiteId(site.getId())) {
             runOneSiteIndexing(site.getUrl() + page.getPath(), page);
         }
-        lemmaRepositoryService.deleteLemmaAll();
+//        lemmaRepositoryService.deleteLemmaAll();
         lemmaRepositoryService.saveLemmas();
         lemmaRepositoryService.saveIndex();
         log.info(site.getName() + " Индексация завершена.");
